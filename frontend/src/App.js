@@ -1,4 +1,5 @@
 import "./App.css";
+import ForestList from "./pages/ForestList";
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
       <header className="App-header">
         <p>Forests Inventory</p>
       </header>
+      <ForestList />
     </div>
   );
 }
