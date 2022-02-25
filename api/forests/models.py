@@ -10,3 +10,8 @@ class Forest(models.Model):
     latitude = models.CharField(max_length=30)
     longitude = models.CharField(max_length=30)
     area_hectares = models.PositiveIntegerField()
+
+class ForestHealth(models.Model):
+    forest = models.ForeignKey(Forest, on_delete=models.CASCADE)
+    date = models.DateField()
+    carbon_stored_tonnes = models.IntegerField()
