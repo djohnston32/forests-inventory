@@ -36,3 +36,27 @@ class Forests(APIView):
                 'short_description': 'Yet another forest.',
             },
         ]
+
+
+class Forest(APIView):
+    def get(self, request, format=None, **kwargs):
+        """
+        Return full details for a single forest.
+        """
+        id = kwargs.get('id')
+        forest = self._getForest(id)
+
+        return Response(forest, status=status.HTTP_200_OK)
+
+    def _getForest(self, id):
+        return {
+            'id': id,
+            'name': 'Forest 1',
+            'image_url': 'image_url_1',
+            'type': 'conservation',
+            'short_description': 'A really good forest.',
+            'location': {'latitute': 123, 'longitude': 456},
+            'area_hectares': 1000,
+            'country': 'Brazil',
+            'long_description': 'A really good forest but with an even longer description.',
+        }
