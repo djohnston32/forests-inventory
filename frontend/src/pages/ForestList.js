@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import ForestCard from "../components/ForestCard";
 import "./ForestList.css";
 
 const FORESTS_URL = "http://0.0.0.0:8000/forests/";
@@ -22,10 +23,7 @@ function ForestList() {
 
       const retrievedForests = [];
       for (const key in data) {
-        retrievedForests.push({
-          id: data[key].id,
-          name: data[key].name,
-        });
+        retrievedForests.push(data[key]);
       }
 
       setForests(retrievedForests);
@@ -36,9 +34,9 @@ function ForestList() {
   };
 
   return (
-    <div>
+    <div className="forest-list">
       {forests.map((forest) => (
-        <p key={forest.id}>{forest.name}</p>
+        <ForestCard key={forest.id} forest={forest} />
       ))}
     </div>
   );
