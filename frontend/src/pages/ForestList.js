@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 import ForestCard from "../components/ForestCard";
 import "./ForestList.css";
@@ -10,6 +15,7 @@ function ForestList() {
   const [forests, setForests] = useState([]);
   const [page, setPage] = useState(1);
   const [forestIndex, setForestIndex] = useState(0);
+  const [filterValue, setFilterValue] = useState("");
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -39,6 +45,15 @@ function ForestList() {
     }
   };
 
+  // Filtering logic
+  const handleTypeFilterChange = (event) => {
+    setFilterValue(event.target.value);
+  };
+  const filteredForests =
+    filterValue === ""
+      ? forests
+      : forests.filter((forest) => forest.type === filterValue);
+
   // Pagination logic
   const MAX_FORESTS_PER_PAGE = 6;
   const numPages = Math.max(
@@ -51,14 +66,35 @@ function ForestList() {
     setPage(value);
   };
 
-  const displayedForests = forests.slice(
+  const displayedForests = filteredForests.slice(
     forestIndex,
     forestIndex + MAX_FORESTS_PER_PAGE
   );
 
   // Main rendering logic
-  const content = (
+  const typeSelect = (
+    <Box sx={{ width: 170, marginBottom: "20px" }}>
+      <FormControl fullWidth>
+        <InputLabel id="select-label">Type</InputLabel>
+        <Select
+          labelId="select-label"
+          value={filterValue}
+          label="Type"
+          onChange={handleTypeFilterChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="conservation">Conservation</MenuItem>
+          <MenuItem value="reforestation">Reforestation</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  );
+
+  const forestContent = (
     <div className="forest-list-wrapper">
+      {typeSelect}
       <div className="forest-list">
         {displayedForests.map((forest) => (
           <ForestCard key={forest.id} forest={forest} />
@@ -77,7 +113,7 @@ function ForestList() {
   return (
     <>
       {hasError && <p>There was a problem retrieving forests.</p>}
-      {!hasError && content}
+      {!hasError && forestContent}
     </>
   );
 }
