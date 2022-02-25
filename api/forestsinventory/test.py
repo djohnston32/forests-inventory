@@ -8,7 +8,7 @@ class ForestsTestCase(APITestCase):
 
         expected_response = [
             {
-                'id': 0,
+                'id': 1,
                 'name': 'Forest 1',
             },
             {
