@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import ForestList from "./ForestList";
 
 test("renders list of forests if request succeeds", async () => {
@@ -11,7 +12,11 @@ test("renders list of forests if request succeeds", async () => {
       { id: 3, name: "Forest 3" },
     ],
   });
-  render(<ForestList />);
+  render(
+    <BrowserRouter>
+      <ForestList />
+    </BrowserRouter>
+  );
 
   const forestElements = await screen.findAllByText(/forest/i);
   expect(forestElements).toHaveLength(3);

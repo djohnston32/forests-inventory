@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import ForestDetail from "./ForestDetail";
+import { BrowserRouter } from "react-router-dom";
 
 jest.mock("../components/HealthMetrics", () => () => {
   const HealthMetricsMock = "health-metrics-mock";
@@ -17,7 +18,8 @@ test("renders list of forests if request succeeds", async () => {
         image_url: "image_url_1",
         type: "conservation",
         short_description: "A really good forest.",
-        location: { latitute: 123, longitude: 456 },
+        latitute: 123,
+        longitude: 456,
         area_hectares: 1000,
         country: "Brazil",
         long_description:
@@ -25,7 +27,11 @@ test("renders list of forests if request succeeds", async () => {
       };
     },
   });
-  render(<ForestDetail />);
+  render(
+    <BrowserRouter>
+      <ForestDetail />
+    </BrowserRouter>
+  );
 
   const forestElements = await screen.findAllByText(/forest/i);
   expect(forestElements[0]).toBeInTheDocument();

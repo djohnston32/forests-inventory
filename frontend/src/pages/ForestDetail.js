@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { CardActionArea } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
@@ -12,6 +11,7 @@ import "./ForestDetail.css";
 const FOREST_URL = "http://0.0.0.0:8000/forests/";
 
 function ForestDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [forest, setForest] = useState([]);
 
@@ -38,10 +38,17 @@ function ForestDetail() {
     fetchForest();
   }, [id]);
 
+  const goToForestsPage = () => {
+    navigate("/forests");
+  };
+
   const geolocationDisplayText = `Latitude: ${forest.latitude}, Longitude: ${forest.longitude}`;
 
   return (
     <div className="forest-detail-wrapper">
+      <Button variant="contained" onClick={goToForestsPage}>
+        Back to List
+      </Button>
       <Typography variant="h4" component="div">
         <p>{forest.name}</p>
       </Typography>

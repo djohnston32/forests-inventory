@@ -1,14 +1,26 @@
-import "./ForestCard.css";
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
+import "./ForestCard.css";
+
 function ForestCard(props) {
+  const navigate = useNavigate();
+
+  const goToDetailPage = (forest_id) => {
+    navigate(`/forests/${forest_id}`);
+  };
+
   return (
     <Card sx={{ width: 345 }}>
-      <CardActionArea>
+      <CardActionArea
+        onClick={() => {
+          goToDetailPage(props.forest.id);
+        }}
+      >
         <CardMedia
           component="img"
           height="140"
