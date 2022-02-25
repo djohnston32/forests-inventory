@@ -57,7 +57,7 @@ class ForestsTestCase(APITestCase):
             'date': 'January 1',
             'metrics': {
                 'carbon_stored_tonnes': 100,
-                '30_day_carbon_change_tonnes': 12,
+                'thirty_day_carbon_change_tonnes': 12,
             },
         }
         self.assertEqual(response.status_code, status.HTTP_200_OK)

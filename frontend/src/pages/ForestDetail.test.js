@@ -1,6 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import ForestDetail from "./ForestDetail";
 
+jest.mock("../components/HealthMetrics", () => () => {
+  const HealthMetricsMock = "health-metrics-mock";
+  return <HealthMetricsMock />;
+});
+
 test("renders list of forests if request succeeds", async () => {
   window.fetch = jest.fn();
   window.fetch.mockResolvedValueOnce({
@@ -22,6 +27,6 @@ test("renders list of forests if request succeeds", async () => {
   });
   render(<ForestDetail />);
 
-  const forestElements = await screen.findByText(/forest/i);
+  const forestElements = await screen.findByText(/forest detail/i);
   expect(forestElements).toBeInTheDocument();
 });

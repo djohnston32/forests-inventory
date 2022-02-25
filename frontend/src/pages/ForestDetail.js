@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import HealthMetrics from "../components/HealthMetrics";
 import "./ForestDetail.css";
 
 const FOREST_URL = "http://0.0.0.0:8000/forests/";
@@ -43,6 +44,7 @@ function ForestDetail() {
       <p>{geolocationDisplayText}</p>
       <p>{forest.area_hectares}</p>
       <p>{forest.country}</p>
+      <HealthMetrics forest_id={id} />
     </div>
   );
 }
