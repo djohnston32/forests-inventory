@@ -17,7 +17,7 @@ function ForestCard(props) {
         />
         <CardContent>
           <Typography variant="h5" component="div">
-            <p>{props.forest.name}</p>
+            {props.forest.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Type: {props.forest.type}

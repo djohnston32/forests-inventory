@@ -1,4 +1,10 @@
 import { useState, useEffect } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { CardActionArea } from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+
 import "./HealthMetrics.css";
 
 function HealthMetrics(props) {
@@ -29,11 +35,20 @@ function HealthMetrics(props) {
   }, [props.forest_id]);
 
   return (
-    <div>
-      Health Metrics
-      <p>{healthMetrics.carbon_stored_tonnes}</p>
-      <p>{healthMetrics.thirty_day_carbon_change_tonnes}</p>
-    </div>
+    <Card sx={{ width: 345 }}>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          Health Metrics
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Carbon Stored (tonnes): {healthMetrics.carbon_stored_tonnes}
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Change in last 30 days (tonnes):{" "}
+          {healthMetrics.thirty_day_carbon_change_tonnes}
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

@@ -27,6 +27,6 @@ test("renders list of forests if request succeeds", async () => {
   });
   render(<ForestDetail />);
 
-  const forestElements = await screen.findByText(/forest detail/i);
-  expect(forestElements).toBeInTheDocument();
+  const forestElements = await screen.findAllByText(/forest/i);
+  expect(forestElements[0]).toBeInTheDocument();
 });

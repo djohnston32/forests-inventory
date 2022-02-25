@@ -1,0 +1,15 @@
+.forest-detail-wrapper {
+    width: 80%;
+    margin: auto;
+}
+
+.forest-detail-info {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.forest-detail-info-item {
+    width: 50%;
+    margin-right: 20px;
+}

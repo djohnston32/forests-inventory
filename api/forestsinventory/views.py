@@ -51,14 +51,15 @@ class Forest(APIView):
     def _get_forest(self, id):
         return {
             'id': id,
-            'name': 'Forest 1',
-            'image_url': 'image_url_1',
+            'name': 'Amazon Rainforest',
+            'image_url': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Amazonia.jpg',
             'type': 'conservation',
             'short_description': 'A really good forest.',
-            'location': {'latitute': 123, 'longitude': 456},
+            'latitude': 123,
+            'longitude': 456,
             'area_hectares': 1000,
             'country': 'Brazil',
-            'long_description': 'A really good forest but with an even longer description.',
+            'long_description': 'The Amazon rainforest, alternatively, the Amazon jungle or Amazonia, is a moist broadleaf tropical rainforest in the Amazon biome that covers most of the Amazon basin of South America. (credit Wikipedia)',
         }
 
 
