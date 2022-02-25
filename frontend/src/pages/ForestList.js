@@ -5,6 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 
 import ForestCard from "../components/ForestCard";
 import "./ForestList.css";
@@ -15,7 +16,8 @@ function ForestList() {
   const [forests, setForests] = useState([]);
   const [page, setPage] = useState(1);
   const [forestIndex, setForestIndex] = useState(0);
-  const [filterValue, setFilterValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [typeFilterValue, setTypeFilterValue] = useState("");
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -46,19 +48,29 @@ function ForestList() {
   };
 
   // Filtering logic
-  const handleTypeFilterChange = (event) => {
-    setFilterValue(event.target.value);
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value.toLowerCase());
+    handlePageChange(null, 1);
   };
-  const filteredForests =
-    filterValue === ""
-      ? forests
-      : forests.filter((forest) => forest.type === filterValue);
+
+  const handleTypeFilterChange = (event) => {
+    setTypeFilterValue(event.target.value);
+    handlePageChange(null, 1);
+  };
+
+  const hasFilteredName = (forest) =>
+    forest.name.toLowerCase().includes(searchValue);
+  const hasFilteredType = (forest) =>
+    typeFilterValue === "" || forest.type === typeFilterValue;
+  const filteredForests = forests.filter(
+    (forest) => hasFilteredName(forest) && hasFilteredType(forest)
+  );
 
   // Pagination logic
-  const MAX_FORESTS_PER_PAGE = 6;
+  const MAX_FORESTS_PER_PAGE = 2;
   const numPages = Math.max(
     1,
-    Math.ceil(forests.length / MAX_FORESTS_PER_PAGE)
+    Math.ceil(filteredForests.length / MAX_FORESTS_PER_PAGE)
   );
 
   const handlePageChange = (event, value) => {
@@ -72,13 +84,30 @@ function ForestList() {
   );
 
   // Main rendering logic
+  const searchInput = (
+    <Box
+      component="form"
+      sx={{ width: 300, marginBottom: "20px" }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="outlined-basic"
+        label="Search by Name"
+        variant="outlined"
+        value={searchValue}
+        onChange={handleSearchChange}
+      />
+    </Box>
+  );
+
   const typeSelect = (
     <Box sx={{ width: 170, marginBottom: "20px" }}>
       <FormControl fullWidth>
-        <InputLabel id="select-label">Type</InputLabel>
+        <InputLabel id="select-label">Forest Type</InputLabel>
         <Select
           labelId="select-label"
-          value={filterValue}
+          value={typeFilterValue}
           label="Type"
           onChange={handleTypeFilterChange}
         >
@@ -92,9 +121,16 @@ function ForestList() {
     </Box>
   );
 
+  const filterBar = (
+    <div className="filter-bar">
+      {searchInput}
+      {typeSelect}
+    </div>
+  );
+
   const forestContent = (
     <div className="forest-list-wrapper">
-      {typeSelect}
+      {filterBar}
       <div className="forest-list">
         {displayedForests.map((forest) => (
           <ForestCard key={forest.id} forest={forest} />

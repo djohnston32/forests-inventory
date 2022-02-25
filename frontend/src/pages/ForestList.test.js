@@ -7,9 +7,9 @@ test("renders list of forests if request succeeds", async () => {
   window.fetch.mockResolvedValueOnce({
     ok: true,
     json: async () => [
-      { id: 1, name: "Forest 1" },
-      { id: 2, name: "Forest 2" },
-      { id: 3, name: "Forest 3" },
+      { id: 1, name: "Rainforest 1" },
+      { id: 2, name: "Rainforest 2" },
+      { id: 3, name: "Rainforest 3" },
     ],
   });
   render(
@@ -18,8 +18,8 @@ test("renders list of forests if request succeeds", async () => {
     </BrowserRouter>
   );
 
-  const forestElements = await screen.findAllByText(/forest/i);
-  expect(forestElements).toHaveLength(3);
+  const forestElements = await screen.findAllByText(/rainforest/i);
+  expect(forestElements).toHaveLength(2);
 });
 
 test("renders error message if request fails", async () => {
