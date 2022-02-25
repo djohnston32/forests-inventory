@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 
 
 class ForestsTestCase(APITestCase):
-    def testGetForests(self):
+    def test_get_forests(self):
         response = self.client.get('/forests/')
 
         expected_response = [
@@ -32,7 +32,7 @@ class ForestsTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, expected_response)
 
-    def testGetForest(self):
+    def test_get_forest(self):
         response = self.client.get('/forests/1')
 
         expected_response = {
@@ -45,6 +45,20 @@ class ForestsTestCase(APITestCase):
             'area_hectares': 1000,
             'country': 'Brazil',
             'long_description': 'A really good forest but with an even longer description.',
+        }
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, expected_response)
+
+    def test_get_forest_health(self):
+        response = self.client.get('/forests/2/health')
+
+        expected_response = {
+            'forest_id': 2,
+            'date': 'January 1',
+            'metrics': {
+                'carbon_stored_tonnes': 100,
+                '30_day_carbon_change_tonnes': 12,
+            },
         }
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, expected_response)

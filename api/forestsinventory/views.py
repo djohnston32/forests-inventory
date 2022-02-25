@@ -8,11 +8,11 @@ class Forests(APIView):
         """
         Return a list of all forests.
         """
-        forests = self._getForests()
+        forests = self._get_forests()
 
         return Response(forests, status=status.HTTP_200_OK)
 
-    def _getForests(self):
+    def _get_forests(self):
         return [
             {
                 'id': 1,
@@ -44,11 +44,11 @@ class Forest(APIView):
         Return full details for a single forest.
         """
         id = kwargs.get('id')
-        forest = self._getForest(id)
+        forest = self._get_forest(id)
 
         return Response(forest, status=status.HTTP_200_OK)
 
-    def _getForest(self, id):
+    def _get_forest(self, id):
         return {
             'id': id,
             'name': 'Forest 1',
@@ -59,4 +59,25 @@ class Forest(APIView):
             'area_hectares': 1000,
             'country': 'Brazil',
             'long_description': 'A really good forest but with an even longer description.',
+        }
+
+
+class ForestHealth(APIView):
+    def get(self, request, format=None, **kwargs):
+        """
+        Return full details for a single forest.
+        """
+        id = kwargs.get('id')
+        forest_health = self._get_health(id)
+
+        return Response(forest_health, status=status.HTTP_200_OK)
+
+    def _get_health(self, id):
+        return {
+            'forest_id': id,
+            'date': 'January 1',
+            'metrics': {
+                'carbon_stored_tonnes': 100,
+                '30_day_carbon_change_tonnes': 12,
+            },
         }
