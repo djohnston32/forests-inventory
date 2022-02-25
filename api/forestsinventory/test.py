@@ -7,28 +7,17 @@ class ForestsTestCase(APITestCase):
         response = self.client.get('/forests/')
 
         expected_response = [
-            {
-                'id': 1,
-                'name': 'Forest 1',
-                'image_url': 'image_url_1',
-                'type': 'conservation',
-                'short_description': 'A really good forest.',
-            },
-            {
-                'id': 2,
-                'name': 'Forest 2',
-                'image_url': 'image_url_2',
-                'type': 'reforestation',
-                'short_description': 'A swell forest.',
-            },
-            {
-                'id': 3,
-                'name': 'Forest 3',
-                'image_url': 'image_url_3',
-                'type': 'conservation',
-                'short_description': 'Yet another forest.',
-            },
-        ]
+            {'id': 1, 'name': 'Amazon Rainforest',
+             'image_url': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Amazonia.jpg',
+             'type': 'conservation', 'short_description': 'A really good forest.', },
+            {'id': 2, 'name': 'Olympic National Forest',
+             'image_url':
+             'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Mount_Zion_-_west_slope%2C_Olympic_National_Forest.jpg/1920px-Mount_Zion_-_west_slope%2C_Olympic_National_Forest.jpg',
+             'type': 'reforestation', 'short_description': 'A swell forest.', },
+            {'id': 3, 'name': 'Valdivian Rainforest',
+             'image_url':
+             'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Valdivian_temperate_rainforest.JPG/1920px-Valdivian_temperate_rainforest.JPG',
+             'type': 'conservation', 'short_description': 'Yet another forest.', }, ]
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, expected_response)
 
