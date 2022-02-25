@@ -21,3 +21,14 @@ test("renders forest health metrics if request succeeds", async () => {
   const healthMetricsElement = await screen.findByText(/Health Metrics/i);
   expect(healthMetricsElement).toBeInTheDocument();
 });
+
+test("renders error message if request fails", async () => {
+  window.fetch = jest.fn();
+  window.fetch.mockResolvedValueOnce({
+    ok: false,
+  });
+  render(<HealthMetrics />);
+
+  const errorElement = await screen.findByText(/there was a problem/i);
+  expect(errorElement).toBeInTheDocument();
+});

@@ -9,6 +9,7 @@ import "./HealthMetrics.css";
 
 function HealthMetrics(props) {
   const [healthMetrics, setHealthMetrics] = useState([]);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchHealthMetrics = async () => {
@@ -22,19 +23,19 @@ function HealthMetrics(props) {
 
         const data = await response.json();
 
-        // TODO validate
+        // TODO better validation
 
         setHealthMetrics(data.metrics);
+        setHasError(false);
       } catch (error) {
-        // TODO Show appropriate error messages in UI
-        console.log(error);
+        setHasError(true);
       }
     };
 
     fetchHealthMetrics();
   }, [props.forest_id]);
 
-  return (
+  const content = (
     <Card sx={{ width: 345 }}>
       <CardContent>
         <Typography variant="h5" component="div">
@@ -49,6 +50,13 @@ function HealthMetrics(props) {
         </Typography>
       </CardContent>
     </Card>
+  );
+
+  return (
+    <>
+      {hasError && <p>There was a problem retrieving health metrics.</p>}
+      {!hasError && content}
+    </>
   );
 }
 

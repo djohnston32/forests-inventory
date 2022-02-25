@@ -7,6 +7,7 @@ const FORESTS_URL = "http://0.0.0.0:8000/forests/";
 
 function ForestList() {
   const [forests, setForests] = useState([]);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     fetchForests();
@@ -21,23 +22,25 @@ function ForestList() {
 
       const data = await response.json();
 
+      // TODO better validation
+
       const retrievedForests = [];
       for (const key in data) {
         retrievedForests.push(data[key]);
       }
 
       setForests(retrievedForests);
+      setHasError(false);
     } catch (error) {
-      // TODO Show appropriate error messages in UI
-      console.log(error);
+      setHasError(true);
     }
   };
 
   return (
     <div className="forest-list">
-      {forests.map((forest) => (
-        <ForestCard key={forest.id} forest={forest} />
-      ))}
+      {hasError && <p>There was a problem retrieving forests.</p>}
+      {!hasError &&
+        forests.map((forest) => <ForestCard key={forest.id} forest={forest} />)}
     </div>
   );
 }

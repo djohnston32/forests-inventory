@@ -36,3 +36,18 @@ test("renders list of forests if request succeeds", async () => {
   const forestElements = await screen.findAllByText(/forest/i);
   expect(forestElements[0]).toBeInTheDocument();
 });
+
+test("renders error message if request fails", async () => {
+  window.fetch = jest.fn();
+  window.fetch.mockResolvedValueOnce({
+    ok: false,
+  });
+  render(
+    <BrowserRouter>
+      <ForestDetail />
+    </BrowserRouter>
+  );
+
+  const errorElement = await screen.findByText(/there was a problem/i);
+  expect(errorElement).toBeInTheDocument();
+});

@@ -14,6 +14,7 @@ function ForestDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [forest, setForest] = useState([]);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchForest = async () => {
@@ -26,12 +27,12 @@ function ForestDetail() {
 
         const data = await response.json();
 
-        // TODO validate
+        // TODO better validation
 
         setForest(data);
+        setHasError(false);
       } catch (error) {
-        // TODO Show appropriate error messages in UI
-        console.log(error);
+        setHasError(true);
       }
     };
 
@@ -44,8 +45,8 @@ function ForestDetail() {
 
   const geolocationDisplayText = `Latitude: ${forest.latitude}, Longitude: ${forest.longitude}`;
 
-  return (
-    <div className="forest-detail-wrapper">
+  const content = (
+    <>
       <Button variant="contained" onClick={goToForestsPage}>
         Back to List
       </Button>
@@ -70,6 +71,13 @@ function ForestDetail() {
         </div>
         <HealthMetrics className="forest-detail-info-item" forest_id={id} />
       </div>
+    </>
+  );
+
+  return (
+    <div className="forest-detail-wrapper">
+      {hasError && <p>There was a problem retrieving the forest.</p>}
+      {!hasError && content}
     </div>
   );
 }
