@@ -26,6 +26,20 @@ services:
     depends_on:
       - db
 
+  apitest:
+    build:
+      context: ./api/
+      dockerfile: Dockerfile
+    command: python manage.py test
+    volumes:
+      - .:/app
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+
   frontend:
     build:
       context: ./frontend/
@@ -37,3 +51,14 @@ services:
       - "3000:3000"
     depends_on:
       - api
+
+  frontendtest:
+    container_name: frontend-test
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    command: npm test
+    volumes:
+      - .:/app
+    environment:
+      - CI=true
