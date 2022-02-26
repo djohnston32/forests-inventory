@@ -3,8 +3,7 @@
 - git clone this repo
 
 ## To run the application
-- Move into the frontend directory: `cd /path/to/forests-inventory/frontend`
-- Run `npm install`
+- One time only: Move into the frontend directory `cd /path/to/forests-inventory/frontend` and run `npm install`
 - Move into the root directory: `cd /path/to/forests-inventory`
 - If you've built/run the app before, you must delete it from the docker UI before attempting to build again. 
 - Run `docker-compose up --build frontend`. This will build and run the db, backend, and frontend.
@@ -18,14 +17,15 @@ If desired, the backend can also be run on its own without the frontend.
 - API endpoints can now be tested directly by going to e.g. http://0.0.0.0:8000/forests. The frontend however will not be active.
 
 ## To run tests
-- Move into the root directory: `cd /path/to/forests-inventory`
-
 ### Frontend Tests
+- One time only: Move into the frontend directory `cd /path/to/forests-inventory/frontend` and run `npm install`
+- Move into the root directory: `cd /path/to/forests-inventory`
 - `docker-compose build frontendtest`
 - `docker-compose run --rm frontendtest`
 - It may take a while for tests to run.
 
 ### API Tests
+- Move into the root directory: `cd /path/to/forests-inventory`
 - `docker-compose build apitest`
 - `docker-compose run --rm apitest`
 
