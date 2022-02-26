@@ -10,6 +10,7 @@ import "./ForestDetail.css";
 
 const FOREST_URL = "http://0.0.0.0:8000/forests/";
 
+// Page for displaying in-depth details about a single forest.
 function ForestDetail() {
   const navigate = useNavigate();
   const { id } = useParams();

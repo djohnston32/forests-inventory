@@ -8,10 +8,11 @@ import datetime
 
 
 class Forests(APIView):
+    """
+    Endpoint for retrieving high level details for all forests.
+    """
+
     def get(self, request, format=None):
-        """
-        Returns a list of a few high level details for all forests.
-        """
         forests = self._get_forests()
 
         return Response(forests, status=status.HTTP_200_OK)
@@ -32,10 +33,11 @@ class Forests(APIView):
 
 
 class Forest(APIView):
+    """
+    Endpoint for retrieving more in-depth details for a single forest.
+    """
+
     def get(self, request, format=None, **kwargs):
-        """
-        Returns full details for a single forest.
-        """
         forest_id = kwargs.get('id')
         forest = self._get_forest(forest_id)
 
@@ -65,10 +67,11 @@ class Forest(APIView):
 
 
 class ForestHealth(APIView):
+    """
+    Returns forest health details for a single forest based on the current day.
+    """
+
     def get(self, request, format=None, **kwargs):
-        """
-        Returns forest health details for a single forest on the current day.
-        """
         forest_id = kwargs.get('id')
         # Date is hardcoded to work with hardcoded data in db.
         current_date = datetime.date(2022, 1, 31)
@@ -81,8 +84,8 @@ class ForestHealth(APIView):
 
     def _get_health(self, forest_id, current_date):
         """
-        Finds the health metrics for the current_date and for the date 30 days prior and returns
-        both.
+        Finds the health metrics for the current_date and for the date 30 days prior and calculates
+        the difference.
         """
         try:
             current_health = ForestHealthModel.objects.filter(

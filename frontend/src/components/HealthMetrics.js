@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import "./HealthMetrics.css";
 
+/* Displays information about the health of a single forest. */
 function HealthMetrics(props) {
   const [healthMetrics, setHealthMetrics] = useState([]);
   const [hasError, setHasError] = useState(false);

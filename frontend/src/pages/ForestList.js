@@ -12,12 +12,22 @@ import "./ForestList.css";
 
 const FORESTS_URL = "http://0.0.0.0:8000/forests/";
 
+/* Displays the list of forests. */
 function ForestList() {
+  // The list of forests received from the backend
   const [forests, setForests] = useState([]);
+
+  // State and constants for pagination. "page" is the current page number.  "forestIndex" is the
+  // index of the first forest to display on the current page.
   const [page, setPage] = useState(1);
   const [forestIndex, setForestIndex] = useState(0);
+  const MAX_FORESTS_PER_PAGE = 2;
+
+  // Values for the search and type filter inputs.
   const [searchValue, setSearchValue] = useState("");
   const [typeFilterValue, setTypeFilterValue] = useState("");
+
+  // Used to toggle messages if something goes wrong.
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -67,7 +77,6 @@ function ForestList() {
   );
 
   // Pagination logic
-  const MAX_FORESTS_PER_PAGE = 2;
   const numPages = Math.max(
     1,
     Math.ceil(filteredForests.length / MAX_FORESTS_PER_PAGE)

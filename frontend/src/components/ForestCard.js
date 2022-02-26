@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 
 import "./ForestCard.css";
 
+// A card for displaying high level details for a single forest.
 function ForestCard(props) {
   const navigate = useNavigate();
 
