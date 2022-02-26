@@ -14,7 +14,9 @@ services:
     build:
       context: ./api/
       dockerfile: Dockerfile
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python check_db.py --service-name db --ip db --port 5432 &&
+                      python manage.py migrate &&
+                      python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
@@ -30,7 +32,9 @@ services:
     build:
       context: ./api/
       dockerfile: Dockerfile
-    command: python manage.py test
+    command: bash -c "python check_db.py --service-name db --ip db --port 5432 &&
+                      python manage.py migrate &&
+                      python manage.py test"
     volumes:
       - .:/app
     environment:
