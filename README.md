@@ -3,12 +3,19 @@
 - git clone this repo
 
 ## To run the application
+- Move into the frontend directory: `cd /path/to/forests-inventory/frontend`
+- Run `npm install`
 - Move into the root directory: `cd /path/to/forests-inventory`
 - If you've built/run the app before, you must delete it from the docker UI before attempting to build again. 
-- `docker-compose up --build`
-- This will also run tests.
+- Run `docker-compose up --build frontend`. This will build and run the db, backend, and frontend.
 - Once the application has started up, see the running application at http://0.0.0.0:3000/forests (must be http, not https)
 - API endpoints can also be tested directly by going to e.g. http://0.0.0.0:8000/forests
+
+If desired, the backend can also be run on its own without the frontend.
+- Move into the root directory: `cd /path/to/forests-inventory`
+- Make sure any previous containers have been deleted first.
+- Run `docker-compose up --build api`.
+- API endpoints can now be tested directly by going to e.g. http://0.0.0.0:8000/forests. The frontend however will not be active.
 
 ## To run tests
 - Move into the root directory: `cd /path/to/forests-inventory`
@@ -19,8 +26,8 @@
 - It may take a while for tests to run.
 
 ### API Tests
-- `docker-compose build frontendtest`
-- `docker-compose run --rm frontendtest`
+- `docker-compose build apitest`
+- `docker-compose run --rm apitest`
 
 # Code Organization
 The code is split into a JS/React frontend and a Python/Django api module. Frontend code is in `forests-inventory/frontend` and backend/api code is in `forests-inventory/api`.
