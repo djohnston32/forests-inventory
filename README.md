@@ -4,11 +4,11 @@
 
 ## To run the application
 - Move into the root directory: `cd /path/to/forests-inventory`
+- If you've built/run the app before, you must delete it from the docker UI before attempting to build again. 
 - `docker-compose up --build`
 - This will also run tests.
 - Once the application has started up, see the running application at http://0.0.0.0:3000/forests (must be http, not https)
 - API endpoints can also be tested directly by going to e.g. http://0.0.0.0:8000/forests
-
 
 ## To run tests
 - Move into the root directory: `cd /path/to/forests-inventory`
